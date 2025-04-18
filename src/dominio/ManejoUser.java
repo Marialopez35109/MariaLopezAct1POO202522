@@ -1,8 +1,11 @@
 package dominio;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class ManejoUser {
     ArrayList<PerfilUser> user;
+    static String email;
 
     public ManejoUser() {
         this.user = new ArrayList<>();
@@ -27,7 +30,6 @@ public class ManejoUser {
     }
     public void RegistrarUser(){
         String nombreUser;
-        String email;
         String numeroCelular;
         String password;
         Scanner teclado =new Scanner(System.in);
@@ -39,6 +41,14 @@ public class ManejoUser {
         numeroCelular= teclado.nextLine();
         System.out.println("Ingrese el password de usuario:");
         password = teclado.nextLine();
-
+        }
+    public static boolean ValidarEmail(){
+        String patronEmail = "^[a-zA-Z0-9_#$%&’*+/=?^.-]+(?:\\\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,7}$";
+        Pattern patron= Pattern.compile(patronEmail);
+        Matcher interprete= patron.matcher(email);
+        return interprete.matches();
     }
+
 }
+
+
