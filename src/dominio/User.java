@@ -1,26 +1,17 @@
 package dominio;
-import java.util.Date;
-
+import java.util.ArrayList;
 public class User {
         String nombreUser;
-        String lugarNacimiento;
-        //FotoPerfil fotoPerfil;
-        String intereses;
-        String LugarResidencia;
-        Date fechaNacimiento;
-        protected String urlPersonal;
-        protected String email;
+        public String email;
         protected String numeroCelular;
         private String password;
+       // Arraylist<Grupo> gruposCreados;
+        PerfilUser perfilUser;
 
         //creacion constructor
-        public  User (String nombreUser, String urlPersonal, String email, String numeroCelular, String intereses){
+        public  User (String nombreUser, String email){
             this.nombreUser = nombreUser;
-            this.urlPersonal = urlPersonal;
             this.email = email;
-            this.numeroCelular = numeroCelular;
-            this.intereses = intereses;
-            this.fechaNacimiento = new Date();
         }
 
     //Creando getters y setters
@@ -31,46 +22,6 @@ public class User {
 
     public void setNombreUser(String nombreUser) {
         this.nombreUser = nombreUser;
-    }
-
-    public String getLugarNacimiento() {
-        return lugarNacimiento;
-    }
-
-    public void setLugarNacimiento(String lugarNacimiento) {
-        this.lugarNacimiento = lugarNacimiento;
-    }
-
-    public String getIntereses() {
-        return intereses;
-    }
-
-    public void setIntereses(String intereses) {
-        this.intereses = intereses;
-    }
-
-    public String getLugarResidencia() {
-        return LugarResidencia;
-    }
-
-    public void setLugarResidencia(String lugarResidencia) {
-        LugarResidencia = lugarResidencia;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public String getUrlPersonal() {
-        return urlPersonal;
-    }
-
-    public void setUrlPersonal(String urlPersonal) {
-        this.urlPersonal = urlPersonal;
     }
 
     public String getEmail() {
@@ -97,5 +48,11 @@ public class User {
         this.password = password;
     }
 
+    public PerfilUser getPerfilUser() {
+        return perfilUser;
+    }
 
+    public void setPerfilUser(PerfilUser perfilUser) {
+        this.perfilUser = perfilUser;
+    }
 }

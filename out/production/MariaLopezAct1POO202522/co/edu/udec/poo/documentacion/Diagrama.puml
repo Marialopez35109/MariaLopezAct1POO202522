@@ -1,0 +1,146 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' Clases
+class ManejoUser{
++PromedioUser()
++MostrarInicioSesion()
++RegistrarUser()
+}
+'Relaciones
+User<--ManejoUser
+'---------------------------------------------------
+class User{
++nombreUser: String
++email: Srtring
+#numeroCelular: String
+-password: String
++gruposCreados:Arraylist<Grupo>
+
++MostrarGruposCreados()
++IniciarSesion()
+
+}
+'Relaciones
+User "*"-- "1" Articulo
+'----------------------------------------------------
+class PerfilUser{
+    #fotoPerfil:
+    +intereses:String
+    +lugarNacimiento: String
+    #urlPersonal:String
+    +LugarResidencia: String
+    +fechaNacimiento: Date
+}
+'Relaciones
+User*--PerfilUser
+User "1" -- "1" PerfilUser
+'------------------------------------------------------
+class Moderador{
+#AdmitirGrupo()
+#EstadoArticulo()
+#EstadoNoticia()
+}
+'Relaciones
+User <|-- Moderador
+Grupo*--Moderador
+'----------------------------------------------------
+class UserFav{
+    +userFav:Arraylist<UserFav>
+    +crearFav()
+}
+'Relaciones
+User<-- UserFav
+
+'----------------------------------------------------
+class Grupo{
+    +moderador:Moderador
+    +user:User
+    +nombreGrupo:String
+    +articulo:Articulo
+    +noticia:Noticia
+    +grupo:Grupo
+    +listaModeradores:Arraylist<Moderador>
+    +grupos:Arraylist<Grupo>
+    +fechaCreacion:Date
+
+    +OrdenarGrupos()
+    +Grupo100Miembros()
+    'Arraylist<Grupo>
+    +CrearGrupo(User user)
+    +SuscribirseGrupo(User user, Grupo grupo)
+}
+'Relaciones
+User o--Grupo
+User "*"--"*" Grupo
+'-----------------------------------------------------
+class Articulo{
+    id: String
+    fechaCreacion: Date
+    user:User
+    resumen: String
+    contenido:String
+    comentario: Arraylist<Comentario>
+    estado: boolean
+    megusta:Arrayslist<Articulo>
+    +CrearArticulo()
+    +EnviarArticuloGrupo()
+    +DarMeGusta()
+    +GetMeGusta()
+}
+'Relaciones
+User*--Articulo
+Grupo*-Articulo
+'------------------------------------------------------
+class Noticia{
+    +fechaCaducidad: Date
+    +CrearNoticia()
+    }
+'Relaciones
+Articulo<|--Noticia
+'------------------------------------------------------
+class Comentario{
+    +user: User
+    +fecha: Date
+    +texto: String
+    #estado: boolean
+    +CrearComentaria()
+}
+'Relaciones
+Articulo*--Comentario
+Articulo "0..*" -- "1" Comentario
+User*--Comentario
+'------------------------------------------------------
+class Notificacion{
+    +user: User
+    +fechaEnvio: Date
+    +mensaje: String
+}
+'Relaciones
+User<-- Notificacion
+UserFav<--Notificacion
+Mensajeria<--Notificacion
+'------------------------------------------------------
+
+class Mensajeria{
+    +user: User
+    +userReceptor:User
+    +notificaciones: Notificacion
+    +mensaje: String
+    +EnviarMensaje()
+}
+'Relaciones
+User*--Mensajeria
+'-----------------------------------------------------
+class ArticuloGuardado{
+    guardado: Arraylist<Articulo>
+}
+'Relaciones
+User*--ArticuloGuardado
+Articulo*--ArticuloGuardado
+
+'quedé por establecer qur tpio de realcion tiene notificacion con las clases
+'ya tengo con mensajeria, noticias y user, no c si el tipo de relacion es de composicion
+'investigar sobre la clase UserFav
+
+@enduml
