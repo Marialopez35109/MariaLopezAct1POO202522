@@ -6,6 +6,8 @@ class ManejoUser{
 +PromedioUser()
 +MostrarInicioSesion()
 +RegistrarUser()
++CantidadArticulosEnviados: Arraylist<Articulo>
++eliminarUser()
 }
 'Relaciones
 User<--ManejoUser
@@ -19,7 +21,7 @@ class User{
 
 +MostrarGruposCreados()
 +IniciarSesion()
-
++CrearGrupo()
 }
 'Relaciones
 User "*"-- "1" Articulo
@@ -38,8 +40,10 @@ User "1" -- "1" PerfilUser
 '------------------------------------------------------
 class Moderador{
 #AdmitirGrupo()
++cantidadGruposAdministrados: Arraylist<Grupo>
 #EstadoArticulo()
 #EstadoNoticia()
+
 }
 'Relaciones
 User <|-- Moderador
@@ -67,8 +71,11 @@ class Grupo{
     +OrdenarGrupos()
     +Grupo100Miembros()
     'Arraylist<Grupo>
+    +ArticuloAprobado():Arraylist<Articulo>
     +CrearGrupo(User user)
     +SuscribirseGrupo(User user, Grupo grupo)
+    +CantidadAriticulosGrupo()
+    +CantidadMiembros()
 }
 'Relaciones
 User o--Grupo
@@ -87,6 +94,7 @@ class Articulo{
     +EnviarArticuloGrupo()
     +DarMeGusta()
     +GetMeGusta()
+    +ConsultarCantidadComentarios()
 }
 'Relaciones
 User*--Articulo
