@@ -7,33 +7,91 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
-    protected  String email;
-    protected  String password;
-    protected  String passwordHash;
+    protected String email;
+    protected String passwordHash;
     protected String nombreUser;
     protected String numeroCelular;
     protected int edad;
     ArrayList<Grupo> gruposCreados;
     Scanner teclado = new Scanner(System.in);
-    Map<String, String> usuariosRegistrados = new HashMap<>();
+    static Map<String, String> usuariosRegistrados = new HashMap<>();
 
-    //Constructor vacio
+    //CONSTRUCTOR
 
-    public User() {}
+    public User() {
+    }
 
 
-    //Setter y Getter
+    //SETTERS Y GETTERS
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getNombreUser() {
         return nombreUser;
     }
 
-    //metodos y funciones
-    public  void SolicitarEmail() {
+    public void setNombreUser(String nombreUser) {
+        this.nombreUser = nombreUser;
+    }
+
+    public String getNumeroCelular() {
+        return numeroCelular;
+    }
+
+    public void setNumeroCelular(String numeroCelular) {
+        this.numeroCelular = numeroCelular;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public ArrayList<Grupo> getGruposCreados() {
+        return gruposCreados;
+    }
+
+    public void setGruposCreados(ArrayList<Grupo> gruposCreados) {
+        this.gruposCreados = gruposCreados;
+    }
+
+    public Scanner getTeclado() {
+        return teclado;
+    }
+
+    public void setTeclado(Scanner teclado) {
+        this.teclado = teclado;
+    }
+
+    public static Map<String, String> getUsuariosRegistrados() {
+        return usuariosRegistrados;
+    }
+
+    public static void setUsuariosRegistrados(Map<String, String> usuariosRegistrados) {
+        User.usuariosRegistrados = usuariosRegistrados;
+    }
+
+    //-------------------------------------------- METODOS Y FUNCIONES -----------------------------------------------------------------
+
+    public void SolicitarEmail() {
         while (true) {
             System.out.println("Ingrese un email:");
             email = teclado.nextLine();
@@ -43,7 +101,6 @@ public class User {
                 System.out.println("El email no es valido, intente nuevamente");
             }
         }
-
     }
     public boolean ValidarEmail() {
         boolean esValido = false;
@@ -75,22 +132,22 @@ public class User {
             if (numeroCelular.length() == 10 && numeroCelular.matches("\\d+")) { //Para validar que el numero de celular tenga 10 digitos y sea numerico
                 break;
             } else {
-                System.out.println("El numero de celular no es valido, debe tener 10 digitos");
+                System.out.println("El numero de celular no es valido, vuelva a intentarlo");
             }
         }
     }
 
-    public int SolicitarEdad(){
+    public int SolicitarEdad() {
         System.out.println("Ingrese su edad: ");
         edad = teclado.nextInt();
         teclado.nextLine();
         if (edad < 0) {
             System.out.println("La edad no puede ser negativa");
-        }
-        return (edad);
+        }return (edad);
     }
 
     public void SolicitarPassword() {
+        String password;
         while (true) {
             System.out.println("Ingrese su contraseña: ");
             password = teclado.nextLine();
@@ -103,56 +160,70 @@ public class User {
             }
         }
     }
+
     //Hashear la contraseña
-    private String hashPassword(String password) {
+    protected String hashPassword(String password) {
         try {
-            MessageDigest md= MessageDigest.getInstance("SHA-256");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(password.getBytes());
-            byte[] hash= md.digest();
+            byte[] hash = md.digest();
             StringBuilder hexString = new StringBuilder();
-            for (byte b: hash){
+            for (byte b : hash) {
                 hexString.append(String.format("%02x", b));
             }
             return hexString.toString();
-        }catch (Exception e){
+        } catch (Exception e) {
+            System.out.println("Error al hashear la contraseña: " + e.getMessage());
         }
+
         return null;
     }
+
     public void RegistrarUser() {
         SolicitarEmail();
         SolicitarNombreUser();
         SolicitarNumeroCelular();
         SolicitarEdad();
         SolicitarPassword();
-        DataBase(email, passwordHash);
+        usuariosRegistrados.put(email, passwordHash);
     }
-    public void DataBase(String email, String passwordHash) {
-    usuariosRegistrados.put(email, passwordHash);
-    System.out.println(usuariosRegistrados);
-    }
-    public void IniciarSesion() {
-        String passwordIngresadaHash=null;
-        String emailIngresado="";
-        String passwordIngresada=null;
-        Scanner teclado= new Scanner(System.in);
 
-        System.out.print("Ingrese su email: ");
-        emailIngresado = teclado.nextLine();
-        System.out.print("Ingrese su contraseña: ");
-        passwordIngresada = teclado.nextLine();
-        passwordIngresadaHash = hashPassword(passwordIngresada);
-        if (usuariosRegistrados.containsKey(emailIngresado)) {
-            emailIngresado.equals(email);
-        }if (usuariosRegistrados.containsValue(passwordIngresadaHash) ){
-            passwordIngresadaHash.equals(passwordHash);
-            System.out.println("Inicio de sesión exitoso");
-            DataBase(emailIngresado, passwordIngresadaHash);
-        }else {
-            System.out.println("Email o contraseña incorrectos");
-            DataBase(emailIngresado, passwordIngresadaHash);
+    public void IniciarSesion() {
+        String emailIngresado;
+        String passwordIngresada;
+        String passwordIngresadaHash = null;
+        int intentos = 0;
+        int maxIntentos = 3;
+
+        while (true) {
+            System.out.print("Ingrese su email: ");
+            emailIngresado = teclado.nextLine();
+            if (!usuariosRegistrados.containsKey(emailIngresado)) {
+                System.out.println("Email no se encuentra registrado, vuelva a intentarlo");
+            }else{
+                break;
+            }
+        }
+            while (intentos < maxIntentos) {
+                System.out.print("Ingrese su contraseña: ");
+                passwordIngresada = teclado.nextLine();
+                passwordIngresadaHash = hashPassword(passwordIngresada);
+                String hashRegistrado = usuariosRegistrados.get(emailIngresado);
+                if (hashRegistrado.equals(passwordIngresadaHash)) {
+                    System.out.println("Inicio de sesión exitoso");
+                    return;
+                } else {
+                    intentos++;
+                    if (intentos < maxIntentos) {
+                        System.out.println("Contraseña incorrecta, intente nuevamente. Intento " + intentos + " de " + maxIntentos);
+
+                    }
+                }
+            }
+            System.out.println("Demasiados intentos fallidos. Intente más tarde.");
         }
     }
-}
+
 
 
 
