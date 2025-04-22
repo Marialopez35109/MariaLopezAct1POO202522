@@ -15,7 +15,7 @@ public class ManejoUser extends User {
     public void setUser(ArrayList<User> user) {
         this.usuario = user;
     }
-    //Metodos y funciones
+    //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
     //para añardir un usuario a la lista
     public void AñadirUser(User user) {
         if (usuario.contains(user)) { // Validación para evitar duplicados
@@ -46,6 +46,11 @@ public class ManejoUser extends User {
     }
     promedio = (double) sumarEdades /user.size();
     System.out.println("El promedio de edad de los usuarios registrados es "+promedio+".");
+    }
+    public void MostrarListaInicioSesion() {
+        for (User user : usuario) {
+            System.out.println("Nombre: " + user.getNombreUser());
+        }
     }
 
 }

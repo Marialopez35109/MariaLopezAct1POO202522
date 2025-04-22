@@ -1,6 +1,7 @@
 package dominio;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Comentario {
     User user;
@@ -9,6 +10,16 @@ public class Comentario {
     boolean esdado;
 
     public void crearComentario() {
-
+        Comentario comentario = null;
+        String aceptarRechazar;
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Desea agregar un comentario? \n" +
+                "si es asi presione 1, si no presione 2");
+        aceptarRechazar = teclado.nextLine();
+        if(aceptarRechazar.equals("1")){
+            comentario.crearComentario();
+        }else if(aceptarRechazar.equals("2")){
+            System.out.println("No se agrego ningun comentario");
+        }
     }
 }

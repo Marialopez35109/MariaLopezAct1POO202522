@@ -15,7 +15,6 @@ public class principal {
         manejoUser.AñadirUser(userRegis1);
 
         System.out.println("Iniciar Sesión:");
-        User user1 = new User();
         userModerador.ConvertirseModerador();
         userModerador.IniciarSesion();
 

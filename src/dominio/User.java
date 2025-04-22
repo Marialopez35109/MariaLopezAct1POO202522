@@ -15,7 +15,6 @@ public class User {
     ArrayList<Grupo> gruposCreados;
     Scanner teclado = new Scanner(System.in);
     static Map<String, String> usuariosRegistrados = new HashMap<>();
-
     //CONSTRUCTOR
 
     public User() {
@@ -89,7 +88,7 @@ public class User {
         User.usuariosRegistrados = usuariosRegistrados;
     }
 
-    //-------------------------------------------- METODOS Y FUNCIONES -----------------------------------------------------------------
+    //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
 
     public void SolicitarEmail() {
         while (true) {

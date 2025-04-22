@@ -8,7 +8,7 @@ public class UserModerador extends User {
     ArrayList<UserModerador> listaModeradores = new ArrayList<>();
 
 
-    //metodos y funciones
+    //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
 
     public void mostrarNombre() {
         System.out.println("Los moderadores son:" + getNombreUser());
@@ -17,6 +17,8 @@ public class UserModerador extends User {
     public void ConvertirseModerador() {
         String aceptarRechazar;
         String password="";
+        String passwordIngresada;
+        String emailIngresado;
 
         System.out.println("¿Desea convertirse en moderador? Si su respuesta es sí,\n " +
                 "presione 1 si es no presione 2");
@@ -24,9 +26,9 @@ public class UserModerador extends User {
         if (aceptarRechazar.equals("1")) {
             System.out.println("Ingrese sus datos de usuario:");
             System.out.println("Ingrese su email:");
-            String emailIngresado = teclado.nextLine();
+            emailIngresado = teclado.nextLine();
             System.out.println("Ingrese su contraseña:");
-            String passwordIngresada = teclado.nextLine();
+            passwordIngresada = teclado.nextLine();
             String passwordIngresadaHash = hashPassword(passwordIngresada);
             if(usuariosRegistrados.containsKey(emailIngresado)) {
                 String hashRegistrado = usuariosRegistrados.get(emailIngresado);
@@ -52,26 +54,41 @@ public class UserModerador extends User {
         String password="";
         String aceptarRechazar = "";
         String passwordIngresadaHash=null;
-        String emailIngresado = "";
         String passwordIngresada = "";
+        String emailIngresado;
+
         System.out.println("Desea iniciar sesión como moderador?); \n" +
                 "si es asi presione 1, si no presione 2");
         aceptarRechazar = teclado.nextLine();
-        if (aceptarRechazar.equals("1")) {
-            System.out.println("Ingrese su email: ");
+        while (true) {
+            System.out.print("Ingrese su email: ");
             emailIngresado = teclado.nextLine();
-            System.out.println("Ingrese su contraseña: ");
-            passwordIngresada = teclado.nextLine();
-        }if (usuariosRegistrados.containsKey(emailIngresado)) {
-            emailIngresado.equals(email);
-        }if (usuariosRegistrados.containsValue(passwordIngresada)) {
-            passwordIngresada.equals(password);
-            System.out.println("Se inicio sesión como moderador");
+            if (!usuariosRegistrados.containsKey(emailIngresado)) {
+                System.out.println("Email no se encuentra registrado, vuelva a intentarlo");
+            }else{
+                break;
+            }
         }
-        if (aceptarRechazar.equals("2")) {
-            System.out.println("Iniciar sesion como usuario normal");
-            super.IniciarSesion();
-        }
+        int intentos = 0;
+        int maxIntentos = 3;
 
+        while (intentos < maxIntentos) {
+            System.out.print("Ingrese su contraseña: ");
+            passwordIngresada = teclado.nextLine();
+            passwordIngresadaHash = hashPassword(passwordIngresada);
+            String hashRegistrado = usuariosRegistrados.get(emailIngresado);
+            if (hashRegistrado.equals(passwordIngresadaHash)) {
+                System.out.println("Inicio de sesión exitoso");
+                return;
+            } else {
+                intentos++;
+                if (intentos < maxIntentos) {
+                    System.out.println("Contraseña incorrecta, intente nuevamente. Intento " + intentos + " de " + maxIntentos);
+
+                }
+            }
+        }
+        System.out.println("Demasiados intentos fallidos. Intente más tarde.");
     }
 }
+

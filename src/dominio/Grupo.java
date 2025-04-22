@@ -14,8 +14,8 @@ public class Grupo {
     ArrayList<Grupo> subGrupos = new ArrayList<>();
     LocalDate fechaCreacion;
     Scanner teclado = new Scanner(System.in);
-    //Metodos y funciones
 
+    //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
     //para saber la cantidad de articulos que hay en el grupo
     public void mostrarCantidadArticulos() {
         ArrayList<Articulo> cantidadArticulos = new ArrayList<>();
