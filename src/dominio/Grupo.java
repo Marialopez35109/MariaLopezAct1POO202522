@@ -195,25 +195,4 @@ public class Grupo {
             System.out.println("El grupo tiene menos de 50 miembros");
         }
     }
-    public void listarGruposPorFecha() {
-        ArrayList<Grupo> grupos= new ArrayList<>();
-        System.out.println("¿Desea ver los grupos ordenados por fecha? Si la respuesta es sí \n presione 1, si es no presione 2.");
-        String aceptarRechazar = teclado.nextLine();
-        if (grupos == null || grupos.isEmpty()) {
-            System.out.println("No hay grupos para listar.");
-            return;
-        }
-
-        Collections.sort(grupos, new Comparator<Grupo>() {
-            @Override
-            public int compare(Grupo g1, Grupo g2) {
-                return g1.getFechaCreacion().compareTo(g2.getFechaCreacion());
-            }
-        });
-
-        System.out.println("Grupos ordenados por fecha de creación:");
-        for (Grupo grupo : grupos) {
-            System.out.println("Nombre: " + grupo.getNombreGrupo() + ", Fecha de creación: " + grupo.getFechaCreacion());
-        }
-    }
 }

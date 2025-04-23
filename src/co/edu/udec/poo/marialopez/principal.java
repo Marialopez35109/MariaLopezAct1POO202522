@@ -22,7 +22,6 @@ public class principal {
         Grupo grupo1= new Grupo();
         userRegis1.crearGrupo();
         grupo1.crearSubGrupo();
-        grupo1.listarGruposPorFecha();
         grupo1.mostrarSubruposCreados();
         grupo1.mostrarCantidadMiembros();
         grupo1.setUser(userRegis1);
