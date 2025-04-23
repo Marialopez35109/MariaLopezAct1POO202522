@@ -1,32 +1,37 @@
 package dominio;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserModerador extends User {
-    ArrayList<UserModerador> listaModeradores = new ArrayList<>();
+    protected static ArrayList<UserModerador> listaModeradores = new ArrayList<>();
 
 
     //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
 
-    public void mostrarNombre() {
-        System.out.println("Los moderadores son:" + getNombreUser());
-    }
 
     public void ConvertirseModerador() {
         String aceptarRechazar;
-        String password="";
         String passwordIngresada;
-        String emailIngresado;
-
-        System.out.println("¿Desea convertirse en moderador? Si su respuesta es sí,\n " +
-                "presione 1 si es no presione 2");
+        String emailIngresado="";
+        String nombreIngresado="";
+        System.out.println("¿Desea convertirse en moderador? Si es así,\n " +
+                "presione 1 si no es así presione 2.");
         aceptarRechazar = teclado.nextLine();
         if (aceptarRechazar.equals("1")) {
             System.out.println("Ingrese sus datos de usuario:");
-            System.out.println("Ingrese su email:");
-            emailIngresado = teclado.nextLine();
+            while (true) {
+                System.out.print("Ingrese su email: ");
+                emailIngresado = teclado.nextLine();
+                if (!usuariosRegistrados.containsKey(emailIngresado)) {
+                    System.out.println("Email no se encuentra registrado, vuelva a intentarlo");
+                }else{
+                    break;
+                }
+            }
+            System.out.print("Ingrese su nombre de usuario: ");
+            nombreIngresado = teclado.nextLine();
+
             System.out.println("Ingrese su contraseña:");
             passwordIngresada = teclado.nextLine();
             String passwordIngresadaHash = hashPassword(passwordIngresada);
@@ -34,12 +39,10 @@ public class UserModerador extends User {
                 String hashRegistrado = usuariosRegistrados.get(emailIngresado);
                 if(hashRegistrado.equals(passwordIngresadaHash)) {
                     System.out.println("Ahora eres moderador.");
-                    UserModerador userModerador = new UserModerador();
-                    userModerador.setEmail(getEmail());
-                    userModerador.setNombreUser(getNombreUser());
-                    userModerador.setEdad(getEdad());
-                    userModerador.setNumeroCelular(getNumeroCelular());
-                    listaModeradores.add(userModerador);
+                    this.setEmail(emailIngresado);
+                    this.setNombreUser(nombreIngresado);
+                    this.setEdad(getEdad());
+                    listaModeradores.add(this);
                 } else {
                     System.out.println("Contraseña incorrecta");
                 }
@@ -48,6 +51,7 @@ public class UserModerador extends User {
         if (aceptarRechazar.equals("2")) {
             System.out.println("Proceso terminado. No se creo moderador.");
         }
+
     }
 
     public void IniciarSesion() {
@@ -90,5 +94,14 @@ public class UserModerador extends User {
         }
         System.out.println("Demasiados intentos fallidos. Intente más tarde.");
     }
+    public void mostrarModeradores() {
+        System.out.println("La cantidad de moderadores en el grupo es: " + listaModeradores.size());
+        System.out.println("Los moderadores son:");
+        for (UserModerador moderador : listaModeradores) {
+            System.out.println("- " + moderador.getNombreUser());
+
+        }
+    }
+
 }
 

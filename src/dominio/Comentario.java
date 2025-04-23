@@ -17,7 +17,10 @@ public class Comentario {
                 "si es asi presione 1, si no presione 2");
         aceptarRechazar = teclado.nextLine();
         if(aceptarRechazar.equals("1")){
-            comentario.crearComentario();
+            System.out.println("Ingrese el texto del comentario:");
+            texto = teclado.nextLine();
+            fechaCreacion = LocalDate.now();
+            System.out.println("Fecha: " + fechaCreacion);
         }else if(aceptarRechazar.equals("2")){
             System.out.println("No se agrego ningun comentario");
         }

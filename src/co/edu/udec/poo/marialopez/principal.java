@@ -17,16 +17,22 @@ public class principal {
         System.out.println("Iniciar Sesión:");
         userModerador.ConvertirseModerador();
         userModerador.IniciarSesion();
+        userRegis1.crearPerfilUser();
 
         Grupo grupo1= new Grupo();
+        userRegis1.crearGrupo();
         grupo1.crearSubGrupo();
+        grupo1.listarGruposPorFecha();
         grupo1.mostrarSubruposCreados();
         grupo1.mostrarCantidadMiembros();
+        grupo1.setUser(userRegis1);
         grupo1.crearArticulo();
         grupo1.crearNoticia();
         grupo1.mostrarCantidadArticulos();
         grupo1.mostrarListaModeradores();
-
+        userRegis1.mostrarGruposCreadosUser();
+        manejoUser.PromedioEdadUser();
+        manejoUser.UsersRegistrados();
 
     }
 }

@@ -1,5 +1,6 @@
 package dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.security.MessageDigest;
@@ -12,7 +13,8 @@ public class User {
     protected String nombreUser;
     protected String numeroCelular;
     protected int edad;
-    ArrayList<Grupo> gruposCreados;
+    protected ArrayList<LocalDate> ultimoInicioSesion;
+    ArrayList<Grupo> gruposCreados= new ArrayList<>();
     Scanner teclado = new Scanner(System.in);
     static Map<String, String> usuariosRegistrados = new HashMap<>();
     //CONSTRUCTOR
@@ -185,6 +187,7 @@ public class User {
         SolicitarEdad();
         SolicitarPassword();
         usuariosRegistrados.put(email, passwordHash);
+
     }
 
     public void IniciarSesion() {
@@ -221,7 +224,32 @@ public class User {
             }
             System.out.println("Demasiados intentos fallidos. Intente más tarde.");
         }
+
+        public void crearPerfilUser(){
+            System.out.println("¿Desea crear un perfil o saltar este paso?\n " +
+                    "presione 1 para crear, presione 2 para saltar.");
+            String aceptarRechazar = teclado.nextLine();
+            if (aceptarRechazar.equals("1")) {
+                PerfilUser perfil = new PerfilUser();
+                perfil.crearPerfil();
+            } else if (aceptarRechazar.equals("2")) {
+                System.out.println("Se ha saltado la creación del perfil.");
+            }
+        }
+    public void crearGrupo() {
+        Grupo grupo = new Grupo();
+        grupo.crearGrupo();
     }
+    public void mostrarGruposCreadosUser() {
+        if (gruposCreados == null) {
+            System.out.println("No hay grupos creados para este usuario.");
+            return;
+        }
+        ManejoUser manejoUser = new ManejoUser();
+        manejoUser.consultarCantidadGruposUsuario(gruposCreados);
+    }
+
+}
 
 
 
