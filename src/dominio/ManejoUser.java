@@ -18,15 +18,6 @@ public class ManejoUser extends User {
         this.usuario = user;
     }
     //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
-    //para añardir un usuario a la lista
-    public void AñadirUser(User user) {
-        if (usuario.contains(user)) { // Validación para evitar duplicados
-            System.out.println("El usuario ya está registrado.");
-        } else {
-            usuario.add(user);
-            System.out.println("Usuario agregado con éxito.");
-        }
-    }
 
     //para ver la cantidad y los usuarios registrados, junto con algunos datos
     public void UsersRegistrados() {

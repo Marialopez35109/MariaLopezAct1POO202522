@@ -3,8 +3,6 @@ package dominio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class Grupo {
     UserModerador moderador;
@@ -13,9 +11,10 @@ public class Grupo {
     Articulo articulo;
     Noticia noticia;
     Grupo grupo;
-    ArrayList<Grupo> subGrupos = new ArrayList<>();
+    ArrayList<String> subGrupos = new ArrayList<String>();
     LocalDate fechaCreacion = LocalDate.now();
     Scanner teclado = new Scanner(System.in);
+    ArrayList<String> listaGrupos = new ArrayList<String>();
 
     public UserModerador getModerador() {
         return moderador;
@@ -65,11 +64,11 @@ public class Grupo {
         this.grupo = grupo;
     }
 
-    public ArrayList<Grupo> getSubGrupos() {
+    public ArrayList<String> getSubGrupos() {
         return subGrupos;
     }
 
-    public void setSubGrupos(ArrayList<Grupo> subGrupos) {
+    public void setSubGrupos(ArrayList<String> subGrupos) {
         this.subGrupos = subGrupos;
     }
 
@@ -84,22 +83,29 @@ public class Grupo {
     public Scanner getTeclado() {
         return teclado;
     }
-
     public void setTeclado(Scanner teclado) {
         this.teclado = teclado;
+    }
+
+    public ArrayList<String> getListaGrupos() {
+        return listaGrupos;
+    }
+    public void setListaGrupos(ArrayList<String> listaGrupos) {
+        this.listaGrupos = listaGrupos;
     }
 
     //-------------------------------------------- METODOS Y FUNCIONES ----------------------------------------------------------
 
     public void crearGrupo() {
-        Grupo grupo = new Grupo();
         String aceptarRechazar;
         System.out.println("¿Desea crear un grupo? Si la respuesta es sí \n presione 1, si es no presione 2.");
         aceptarRechazar = teclado.nextLine();
         if (aceptarRechazar.equals("1")) {
             System.out.println("Ingrese el nombre del grupo");
             nombreGrupo = teclado.nextLine();
+            listaGrupos.add(nombreGrupo);
             System.out.println("Grupo creado exitosamente");
+
         }
         if (aceptarRechazar.equals("2")) {
             System.out.println("Proceso terminado. No se ha creado ningun grupo.");
@@ -130,16 +136,12 @@ public class Grupo {
 
     //para crear un grupo
     public void crearSubGrupo() {
-        Grupo subgrupo = new Grupo();
-        String aceptarRechazar;
-        Scanner teclado = new Scanner(System.in);
-
         System.out.println("¿Desea crear un subgrupo? Si la respuesta es sí \n presione 1, si es no presione 2.");
-        aceptarRechazar = teclado.nextLine();
+        String aceptarRechazar = teclado.nextLine();
         if (aceptarRechazar.equals("1")) {
             System.out.println("Ingrese el nombre del subgrupo");
-            String nombreSubrupo = teclado.nextLine();
-            subGrupos.add(subgrupo);
+            String nombreSubgrupo = teclado.nextLine();
+            subGrupos.add(nombreSubgrupo);
             System.out.println("Subgrupo creado exitosamente");
         }
         if (aceptarRechazar.equals("2")) {

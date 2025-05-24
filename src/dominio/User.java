@@ -1,5 +1,7 @@
 package dominio;
 
+import co.edu.udec.poo.modelo.crud.UserCrud;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,6 +22,9 @@ public class User {
     //CONSTRUCTOR
 
     public User() {
+    }
+    public User(String email) {
+        this.email = email;
     }
 
 

@@ -7,10 +7,9 @@ public class Comentario {
     User user;
     String texto;
     LocalDate fechaCreacion;
-    boolean esdado;
+    boolean estado;
 
     public void crearComentario() {
-        Comentario comentario = null;
         String aceptarRechazar;
         Scanner teclado = new Scanner(System.in);
         System.out.println("Desea agregar un comentario? \n" +

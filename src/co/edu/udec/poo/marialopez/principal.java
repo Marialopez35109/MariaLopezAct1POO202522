@@ -1,4 +1,5 @@
 package co.edu.udec.poo.marialopez;
+import co.edu.udec.poo.modelo.crud.UserCrud;
 import dominio.Grupo;
 import dominio.ManejoUser;
 import dominio.User;
@@ -9,11 +10,35 @@ public class principal {
         User userRegis1 = new User();
         ManejoUser manejoUser = new ManejoUser();
         UserModerador userModerador = new UserModerador();
+        UserCrud userCrud = new UserCrud();
 
         System.out.println("Registrarse:");
         userRegis1.RegistrarUser();
-        manejoUser.AñadirUser(userRegis1);
-
+        try{
+            userCrud.agregar(userRegis1);
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        try {
+            userCrud.editar(userRegis1);
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        try{
+            userCrud.eliminar(userRegis1);
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        try{
+            userCrud.listarTodo();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        try{
+            userCrud.contar();
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         System.out.println("Iniciar Sesión:");
         userModerador.ConvertirseModerador();
         userModerador.IniciarSesion();
